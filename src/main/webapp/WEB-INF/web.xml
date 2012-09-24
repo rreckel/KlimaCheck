@@ -7,9 +7,6 @@
     <display-name>KlimaCheck</display-name>
 
     <listener>
-        <listener-class>org.h2.server.web.DbStarter</listener-class>
-    </listener>
-    <listener>
         <listener-class>SessionInitializer</listener-class>
     </listener>
     <listener>

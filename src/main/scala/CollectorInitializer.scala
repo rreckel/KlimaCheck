@@ -1,7 +1,10 @@
 import actors._
 import com.tinkerforge.{BrickletHumidity, BrickletTemperature, IPConnection}
+import java.sql.Timestamp
+import java.util.Date
 import javax.servlet.{ServletContextEvent, ServletContextListener}
 import Actor._
+import org.squeryl.PrimitiveTypeMode._
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,8 +23,11 @@ class CollectorInitializer extends ServletContextListener {
     loop {
       react {
         case x => {
-          println("Temp: " + (temperatureBricklet.getTemperature/100f))
-          println("Humidity: " + (humidityBricklet.getHumidity/10f))
+          val temp = temperatureBricklet.getTemperature
+          val humidity = humidityBricklet.getHumidity
+          inTransaction {
+            DB.records.insert(Record(0l, new Timestamp(System.currentTimeMillis()), temp, humidity))
+          }
         }
       }
     }

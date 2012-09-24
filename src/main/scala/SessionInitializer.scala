@@ -1,4 +1,4 @@
-import java.sql.Connection
+import java.sql.{DriverManager, Connection}
 import javax.servlet.{ServletContextEvent, ServletContextListener}
 import org.squeryl.adapters.H2Adapter
 import org.squeryl.{SessionFactory, Session}
@@ -14,8 +14,14 @@ class SessionInitializer extends ServletContextListener {
 
   def contextInitialized(e: ServletContextEvent) {
     println("Initializing squeryl sessions")
-    SessionFactory.concreteFactory = Some(()=>
-        Session.create(e.getServletContext.getAttribute("connection").asInstanceOf[Connection],new H2Adapter))
+    org.h2.Driver.load
+    SessionFactory.concreteFactory = Some(()=> {
+//      val session = Session.create(e.getServletContext.getAttribute("connection").asInstanceOf[Connection],new H2Adapter)
+      val conn = DriverManager.getConnection("jdbc:h2:~/klima", "sa", "sa");
+      val session = Session.create(conn, new H2Adapter)
+//      session.setLogger(println(_))
+      session
+    })
   }
 
   def contextDestroyed(e: ServletContextEvent) {}

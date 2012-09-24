@@ -1,3 +1,4 @@
+import java.sql.Timestamp
 import java.util.Date
 import org.squeryl.KeyedEntity
 
@@ -6,8 +7,7 @@ import org.squeryl.KeyedEntity
  * User: rre
  * Date: 20/09/12
  * Time: 21:57
- * To change this template use File | Settings | File Templates.
  */
-case class Record(id: Long, date: Date, temperature: Int, humidity:Int) extends KeyedEntity[Long] {
+case class Record(id: Long, date: Timestamp, temperature: Int, humidity: Int) extends KeyedEntity[Long] {
 
 }

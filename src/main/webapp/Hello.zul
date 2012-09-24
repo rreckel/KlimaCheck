@@ -1,3 +1,8 @@
 <window title="My First ZK Application" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('HelloVM')">
-    Hello World!
+    <vlayout>
+        Hello World!
+        <flashchart id="chart" width="1700" height="800"
+                    type="line"
+                    model="@bind(vm.model)"/>
+    </vlayout>
 </window>

@@ -13,7 +13,7 @@ object DB extends Schema {
     r.id is(autoIncremented)
   ))
 
-//  printDdl
-//  drop
-//  create
+  printDdl
+  drop
+  create
 }
